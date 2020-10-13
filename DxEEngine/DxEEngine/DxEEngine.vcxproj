@@ -80,6 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -159,14 +161,17 @@
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Includes.h" />
+    <ClInclude Include="IObject.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TypeDefs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CD3D.cpp" />
     <ClCompile Include="CDxManager.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="IObject.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

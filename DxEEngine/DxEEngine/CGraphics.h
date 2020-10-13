@@ -3,9 +3,11 @@
 #ifndef GRAPHICS_H_
 #define GRAPHICS_H_
 
+#include "Includes.h"
+
 START(dxengine)
 
-class CGraphics : public Object<CGraphics>
+class CGraphics : public ISystemObject
 {
 public:
 	CGraphics();
@@ -13,9 +15,8 @@ public:
 	~CGraphics();
 
 public:
-	// Object을(를) 통해 상속됨
-	virtual bool Initialize() override;
-	virtual void Shutdown() override;
+	bool Initialize();
+	void Shutdown();
 
 	bool	Frame();
 

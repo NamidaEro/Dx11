@@ -4,7 +4,9 @@
 #ifndef CDxManager_h_
 #define CDxManager_h_
 
-class DxAPI CDxManager
+#include "Includes.h"
+
+class DXAPI CDxManager
 {
 };
 

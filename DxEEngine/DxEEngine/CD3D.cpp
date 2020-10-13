@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "CD3D.h"
 
 USING(dxengine);
@@ -135,14 +136,14 @@ bool CD3D::Initialize(
 	m_videoCardMemory = (INT32)(adapterDesc.DedicatedVideoMemory / 1024 / 1024);
 
 	// Convert the name of the video card to a character array and store it.
-	error = wcstombs_s(&stringLength
+	/*error = wcstombs_s(&stringLength
 		, m_videoCardDescription, 128
 		, adapterDesc.Description, 128);
 
 	if (0 != error)
 	{
 		return false;
-	}
+	}*/
 
 	// Release the display mode list.
 	delete[] displayModeList;

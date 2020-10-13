@@ -12,9 +12,11 @@
 #pragma comment(lib, "d3dx11.lib")
 #pragma comment(lib, "d3dx10.lib")
 
+#include "Includes.h"
+
 START(dxengine)
 
-class CD3D : public Object<CD3D>
+class CD3D : public ISystemObject
 {
 public:
 	CD3D();
@@ -22,9 +24,8 @@ public:
 	~CD3D();
 
 public:
-	// Object을(를) 통해 상속됨
-	virtual bool				Initialize() override;
-	virtual void				Shutdown() override;
+	bool						Initialize();
+	void						Shutdown();
 
 public:
 	bool						Initialize(HWND hwnd
