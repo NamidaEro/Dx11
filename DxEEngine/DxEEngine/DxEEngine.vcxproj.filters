@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00.default">
+      <UniqueIdentifier>{446592d5-169c-41e3-9713-2883b9f363f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99.Public">
+      <UniqueIdentifier>{5d1827d7-d56a-4795-bd1c-65b6ef667f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Manager">
+      <UniqueIdentifier>{21c6b810-0376-483d-a15c-106e83b6034b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.Others">
+      <UniqueIdentifier>{856fe49d-32a6-42bb-b97c-9ec7f2291cb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Defines">
+      <UniqueIdentifier>{dba8e86c-7228-44eb-8344-72754f27d51c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CDxManager.h">
+      <Filter>01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>00.default</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>00.default</Filter>
+    </ClInclude>
+    <ClInclude Include="CGraphics.h">
+      <Filter>10.Others</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3D.h">
+      <Filter>10.Others</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>99.Public</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes.h">
+      <Filter>98.Defines</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CDxManager.cpp">
+      <Filter>01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>00.default</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>00.default</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraphics.cpp">
+      <Filter>10.Others</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3D.cpp">
+      <Filter>10.Others</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

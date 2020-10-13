@@ -1,0 +1,9 @@
+
+*.ipch
+DxEEngine/.vs/DxEEngine/v16/.suo
+*.db
+*.log
+*.pch
+*.tlog
+*.idb
+*.pdb
