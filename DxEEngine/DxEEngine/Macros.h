@@ -4,10 +4,13 @@
 #define START(x) namespace x {
 #define END }
 
-#define EXTERN_START extern "C" {
-#define EXTERN_END }
-
 #define USING(x) using namespace x;
+
+#define NULLCHECK_RET_VOID(x) if(nullptr == x) {return;}
+#define NULLCHECK_RET_VALUE(x, x1) if(nullptr == x) {return x1;}
+
+#define NULLCHECK_START(x) if(nullptr == x) {
+#define NULLCHECK_END }
 
 #if _DEBUG && DXEENGINE_EXPORTS
 #define DXAPI __declspec(dllexport)

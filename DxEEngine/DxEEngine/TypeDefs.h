@@ -3,5 +3,4 @@
 
 #include "IObject.h"
 
-
 #endif // !TYPEDEFS_H__

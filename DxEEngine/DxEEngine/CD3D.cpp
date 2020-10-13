@@ -21,6 +21,7 @@ CD3D::CD3D(const CD3D& other)
 
 CD3D::~CD3D()
 {
+	Shutdown();
 }
 
 bool CD3D::Initialize()
@@ -30,12 +31,65 @@ bool CD3D::Initialize()
 
 void CD3D::Shutdown()
 {
+	// Before shutting down set to windowed mode or when you release the swap chain it will throw an exception.
+	if (m_swapChain)
+	{
+		m_swapChain->SetFullscreenState(false, NULL);
+	}
+
+	if (m_rasterState)
+	{
+		m_rasterState->Release();
+		m_rasterState = 0;
+	}
+
+	if (m_depthStencilView)
+	{
+		m_depthStencilView->Release();
+		m_depthStencilView = 0;
+	}
+
+	if (m_depthStencilState)
+	{
+		m_depthStencilState->Release();
+		m_depthStencilState = 0;
+	}
+
+	if (m_depthStencilBuffer)
+	{
+		m_depthStencilBuffer->Release();
+		m_depthStencilBuffer = 0;
+	}
+
+	if (m_renderTargetView)
+	{
+		m_renderTargetView->Release();
+		m_renderTargetView = 0;
+	}
+
+	if (m_deviceContext)
+	{
+		m_deviceContext->Release();
+		m_deviceContext = 0;
+	}
+
+	if (m_device)
+	{
+		m_device->Release();
+		m_device = 0;
+	}
+
+	if (m_swapChain)
+	{
+		m_swapChain->Release();
+		m_swapChain = 0;
+	}
 }
 
 bool CD3D::Initialize(
 	HWND hwnd,
 	int screenWidth, int screenHeight,
-	float scrennDepth, float screenNear,
+	float screenDepth, float screenNear,
 	bool vsync, bool fullscreen)
 {
 #pragma region Functions Variables
@@ -44,7 +98,8 @@ bool CD3D::Initialize(
 	IDXGIFactory* factory;
 	IDXGIAdapter* adapter;
 	IDXGIOutput* adapterOutput;
-	UINT32 numModes, i, numerator, denominator, stringLength;
+	UINT32 numModes, i, numerator, denominator;
+	size_t stringLength;
 
 	DXGI_MODE_DESC* displayModeList;
 	DXGI_ADAPTER_DESC adapterDesc;
@@ -136,14 +191,14 @@ bool CD3D::Initialize(
 	m_videoCardMemory = (INT32)(adapterDesc.DedicatedVideoMemory / 1024 / 1024);
 
 	// Convert the name of the video card to a character array and store it.
-	/*error = wcstombs_s(&stringLength
+	error = wcstombs_s(&stringLength
 		, m_videoCardDescription, 128
 		, adapterDesc.Description, 128);
 
 	if (0 != error)
 	{
 		return false;
-	}*/
+	}
 
 	// Release the display mode list.
 	delete[] displayModeList;
@@ -313,39 +368,111 @@ bool CD3D::Initialize(
 
 	// Set the depth stencil state.
 	m_deviceContext->OMSetDepthStencilState(m_depthStencilState, 1);
-    return false;
+
+	// Initailze the depth stencil view.
+	ZeroMemory(&depthStencilViewDesc, sizeof(depthStencilViewDesc));
+
+	// Set up the depth stencil view description.
+	depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depthStencilViewDesc.Texture2D.MipSlice = 0;
+
+	// Create the depth stencil view.
+	result = m_device->CreateDepthStencilView(m_depthStencilBuffer, &depthStencilViewDesc, &m_depthStencilView);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Bind the render target view and depth stencil buffer to the output render pipeline.
+	m_deviceContext->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
+
+	// Setup the raster description which will determine how and what polygons will be drawn.
+	rasterDesc.AntialiasedLineEnable = false;
+	rasterDesc.CullMode = D3D11_CULL_BACK;
+	rasterDesc.DepthBias = 0;
+	rasterDesc.DepthBiasClamp = 0.0f;
+	rasterDesc.DepthClipEnable = true;
+	rasterDesc.FillMode = D3D11_FILL_SOLID;
+	rasterDesc.FrontCounterClockwise = false;
+	rasterDesc.MultisampleEnable = false;
+	rasterDesc.ScissorEnable = false;
+	rasterDesc.SlopeScaledDepthBias = 0.0f;
+
+	// Create the rasterizer state from the description we just filled out.
+	result = m_device->CreateRasterizerState(&rasterDesc, &m_rasterState);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Now set the rasterizer state.
+	m_deviceContext->RSSetState(m_rasterState);
+
+	// Setup the viewport for rendering.
+	viewport.Width = (float)screenWidth;
+	viewport.Height = (float)screenHeight;
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	viewport.TopLeftX = 0.0f;
+	viewport.TopLeftY = 0.0f;
+
+	// Create the viewport.
+	m_deviceContext->RSSetViewports(1, &viewport);
+
+	// Setup the projection matrix.
+	fieldOfView = (float)D3DX_PI / 4.0f;
+	screenAspect = (float)screenWidth / (float)screenHeight;
+
+	// Create the projection matrix for 3D rendering.
+	D3DXMatrixPerspectiveFovLH(&m_projectionMatrix, fieldOfView, screenAspect, screenNear, screenDepth);
+
+	// Initialize the world matrix to the identity matrix.
+	D3DXMatrixIdentity(&m_worldMatrix);
+
+	// Create an orthographic projection matrix for 2D rendering.
+	D3DXMatrixOrthoLH(&m_orthoMatrix, (float)screenWidth, (float)screenHeight, screenNear, screenDepth);
+
+    return true;
 }
 
 void CD3D::BeginScene(float R, float G, float B, float A)
 {
+	float color[4];
+
+
+	// Setup the color to clear the buffer to.
+	color[0] = R;
+	color[1] = G;
+	color[2] = B;
+	color[3] = A;
+
+	// Clear the back buffer.
+	m_deviceContext->ClearRenderTargetView(m_renderTargetView, color);
+
+	// Clear the depth buffer.
+	m_deviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void CD3D::EndScene()
 {
-}
+	// Present the back buffer to the screen since rendering is complete.
+	if (m_vsync_enabled)
+	{
+		// Lock to screen refresh rate.
+		m_swapChain->Present(1, 0);
+	}
+	else
+	{
+		// Present as fast as possible.
+		m_swapChain->Present(0, 0);
+	}
 
-ID3D11Device* CD3D::GetDevice()
-{
-    return nullptr;
-}
-
-ID3D11DeviceContext* CD3D::GetDeviceContext()
-{
-    return nullptr;
-}
-
-void CD3D::GetProjectionMatrix(D3DXMATRIX& projMatrix)
-{
-}
-
-void CD3D::GetWorkdMatrix(D3DMATRIX& worldMatrix)
-{
-}
-
-void CD3D::GetOrhoMatrix(D3DMATRIX& orthoMatrix)
-{
+	return;
 }
 
 void CD3D::GetVideoCardInfo(char* cardName, int& memory)
 {
+	strcpy_s(cardName, 128, m_videoCardDescription);
+	memory = m_videoCardMemory;
 }

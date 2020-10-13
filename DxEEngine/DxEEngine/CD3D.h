@@ -30,7 +30,7 @@ public:
 public:
 	bool						Initialize(HWND hwnd
 								, int screenWidth, int screenHeight
-								, float scrennDepth, float screenNear
+								, float screenDepth, float screenNear
 								, bool vsync, bool fullscreen);
 
 public:
@@ -38,13 +38,13 @@ public:
 	void						EndScene();
 
 public:
-	ID3D11Device*				GetDevice();
-	ID3D11DeviceContext*		GetDeviceContext();
+	ID3D11Device*				GetDevice() { return m_device; }
+	ID3D11DeviceContext*		GetDeviceContext() { return m_deviceContext; }
 
 public:
-	void						GetProjectionMatrix(D3DXMATRIX& projMatrix);
-	void						GetWorkdMatrix(D3DMATRIX& worldMatrix);
-	void						GetOrhoMatrix(D3DMATRIX& orthoMatrix);
+	void						GetProjectionMatrix(D3DXMATRIX& projMatrix) { projMatrix = m_projectionMatrix; }
+	void						GetWorkdMatrix(D3DMATRIX& worldMatrix) { worldMatrix = m_worldMatrix; }
+	void						GetOrhoMatrix(D3DMATRIX& orthoMatrix) { orthoMatrix = m_orthoMatrix; }
 
 public:
 	void						GetVideoCardInfo(char* cardName, int& memory);

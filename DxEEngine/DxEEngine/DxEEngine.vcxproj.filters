@@ -42,7 +42,12 @@
     <ClInclude Include="TypeDefs.h">
       <Filter>99.Public</Filter>
     </ClInclude>
-    <ClInclude Include="IObject.h" />
+    <ClInclude Include="IObject.h">
+      <Filter>98.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="Extern.h">
+      <Filter>98.Defines</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDxManager.cpp">
@@ -60,6 +65,8 @@
     <ClCompile Include="CD3D.cpp">
       <Filter>10.Others</Filter>
     </ClCompile>
-    <ClCompile Include="IObject.cpp" />
+    <ClCompile Include="IObject.cpp">
+      <Filter>98.Defines</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

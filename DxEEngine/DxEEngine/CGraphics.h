@@ -7,6 +7,7 @@
 
 START(dxengine)
 
+class CD3D;
 class CGraphics : public ISystemObject
 {
 public:
@@ -15,8 +16,8 @@ public:
 	~CGraphics();
 
 public:
-	bool Initialize();
-	void Shutdown();
+	bool	Initialize(HWND hwnd, int screenWidth, int screenHeight);
+	void	Shutdown();
 
 	bool	Frame();
 
@@ -28,6 +29,9 @@ public:
 	bool	VSYNC_ENABLED = false;
 	float	SCREEN_DEPTH = 1000.0f;
 	float	SCREEN_NEAR = false;
+
+private:
+	CD3D* m_pD3D;
 };
 
 END
