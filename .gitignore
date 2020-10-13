@@ -7,3 +7,7 @@ DxEEngine/.vs/DxEEngine/v16/.suo
 *.tlog
 *.idb
 *.pdb
+*.obj
+*.db-shm
+*.db-wal
+*.opendb
