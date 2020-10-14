@@ -17,6 +17,7 @@ CD3D::CD3D()
 
 CD3D::CD3D(const CD3D& other)
 {
+
 }
 
 CD3D::~CD3D()

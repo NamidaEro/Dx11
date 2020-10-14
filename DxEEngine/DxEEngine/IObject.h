@@ -4,7 +4,7 @@
 
 START(dxengine)
 
-class IObject
+class DXAPI IObject
 {
 public:
 	IObject();

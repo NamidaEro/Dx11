@@ -16,6 +16,15 @@
     <Filter Include="98.Defines">
       <UniqueIdentifier>{dba8e86c-7228-44eb-8344-72754f27d51c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Objects">
+      <UniqueIdentifier>{1c4df4cf-a177-431c-94ba-c76bd06adf04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Physics">
+      <UniqueIdentifier>{c278015e-d4b6-4afe-bf29-da3090d89d6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Math">
+      <UniqueIdentifier>{e383a67f-06e1-4cdf-8829-e3cae7673d04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CDxManager.h">
@@ -42,11 +51,35 @@
     <ClInclude Include="TypeDefs.h">
       <Filter>99.Public</Filter>
     </ClInclude>
-    <ClInclude Include="IObject.h">
-      <Filter>98.Defines</Filter>
-    </ClInclude>
     <ClInclude Include="Extern.h">
       <Filter>98.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.h">
+      <Filter>02.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>02.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>02.Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Math3D.h">
+      <Filter>98.Defines</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>04.Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>04.Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon.h">
+      <Filter>03.Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>03.Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>03.Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +99,28 @@
       <Filter>10.Others</Filter>
     </ClCompile>
     <ClCompile Include="IObject.cpp">
-      <Filter>98.Defines</Filter>
+      <Filter>02.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>02.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>02.Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>04.Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>04.Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygon.cpp">
+      <Filter>03.Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>03.Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>03.Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

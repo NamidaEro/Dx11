@@ -160,18 +160,27 @@
     <ClInclude Include="CD3D.h" />
     <ClInclude Include="CDxManager.h" />
     <ClInclude Include="CGraphics.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="Extern.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="IObject.h" />
     <ClInclude Include="Macros.h" />
+    <ClInclude Include="Math3D.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Polygon.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="TypeDefs.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CD3D.cpp" />
     <ClCompile Include="CDxManager.cpp" />
     <ClCompile Include="CGraphics.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="IObject.cpp" />
     <ClCompile Include="pch.cpp">
@@ -180,6 +189,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Polygon.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
