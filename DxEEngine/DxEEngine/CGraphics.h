@@ -8,6 +8,9 @@
 START(dxengine)
 
 class CD3D;
+class CCamera;
+class Triangle;
+class CGPURender;
 class CGraphics : public ISystemObject
 {
 public:
@@ -32,6 +35,9 @@ public:
 
 private:
 	CD3D* m_pD3D;
+	CCamera* m_Camera;
+	Triangle* m_Model;
+	CGPURender* m_GPURender;
 };
 
 END

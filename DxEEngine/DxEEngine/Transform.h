@@ -7,10 +7,13 @@
 START(dxengine)
 class DXAPI Transform : public Component
 {
+public:
+	Transform();
+
 	DEF_REF_GS(Vector3, localPosition)
 	DEF_REF_GS(Vector3, localEulerAngles)
 	DEF_REF_GS(Vector3, localScale)
-	DEF_REF_GS(Quaternion, rocalRotation)
+	DEF_REF_GS(Quaternion, localRotation)
 
 	DEF_REF_GS(Vector3, position)
 	DEF_REF_GS(Vector3, eulerAngles)

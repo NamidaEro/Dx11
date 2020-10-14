@@ -20,6 +20,9 @@ class DXAPI Component : public IObject
 	virtual void OnGUI() override;
 	virtual void OnDisable() override;
 	virtual void OnDestroy() override;
+
+public:
+	Component() {}
 };
 
 END

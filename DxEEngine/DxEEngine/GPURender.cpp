@@ -5,6 +5,7 @@
 #include <d3dx10math.h>
 #include <d3dx11async.h>
 #include <fstream>
+#include <corecrt_wstring.h>
 
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3d11.lib")
@@ -42,10 +43,17 @@ bool CGPURender::Initialize(ID3D11Device* device, HWND hwnd)
 {
 	bool result;
 
+	WCHAR vsPath[_MAX_PATH];
+	GetCurrentDirectory(_MAX_PATH, vsPath);
+	WCHAR psPath[_MAX_PATH];
+	GetCurrentDirectory(_MAX_PATH, psPath);
+	std::wcscat(vsPath, L"\\Shader\\color.vs");
+	std::wcscat(psPath, L"\\Shader\\color.ps");
+
 	// Initialize the vertex and pixel shaders.
 	result = InitializeShader(device, hwnd
-		, const_cast<WCHAR*>(L"../Engine/color.vs")
-		, const_cast<WCHAR*>(L"../Engine/color.ps"));
+		, const_cast<WCHAR*>(vsPath)
+		, const_cast<WCHAR*>(psPath));
 	if (!result)
 	{
 		return false;

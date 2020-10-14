@@ -43,7 +43,7 @@ public:
 
 public:
 	void						GetProjectionMatrix(D3DXMATRIX& projMatrix) { projMatrix = m_projectionMatrix; }
-	void						GetWorkdMatrix(D3DMATRIX& worldMatrix) { worldMatrix = m_worldMatrix; }
+	void						GetWorldMatrix(D3DMATRIX& worldMatrix) { worldMatrix = m_worldMatrix; }
 	void						GetOrhoMatrix(D3DMATRIX& orthoMatrix) { orthoMatrix = m_orthoMatrix; }
 
 public:

@@ -11,6 +11,12 @@
 
 USING(dxengine)
 
+struct VertexType
+{
+	D3DXVECTOR3 position;
+	D3DXVECTOR4 color;
+};
+
 Triangle::Triangle()
 {
 	// Set the number of vertices in the vertex array.
@@ -20,7 +26,7 @@ Triangle::Triangle()
 	m_indexCount = 3;
 
 	// Create the vertex array.
-	vertices = new Vertex[m_vertexCount];
+	//vertices = new Vertex[m_vertexCount];
 
 	// Create the index array.
 	indices = new unsigned long[m_indexCount];
@@ -58,19 +64,27 @@ void Triangle::Render(ID3D11DeviceContext* context)
 
 bool Triangle::InitializeBuffers(ID3D11Device* device)
 {
+	VertexType* vertices;
+
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
+	vertices = new VertexType[m_vertexCount];
+	if (!vertices)
+	{
+		return false;
+	}
+
 	// Load the vertex array with data.
-	vertices[0].position = Vector3(-1.0f, -1.0f, 0.0f);
-	vertices[0].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[0].position = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);  // Bottom left.
+	vertices[0].color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[1].position = Vector3(0.0f, 1.0f, 0.0f);  // Top middle.
-	vertices[1].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[1].position = D3DXVECTOR3(0.0f, 1.0f, 0.0f);  // Top middle.
+	vertices[1].color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[2].position = Vector3(1.0f, -1.0f, 0.0f);  // Bottom right.
-	vertices[2].color = Vector4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].position = D3DXVECTOR3(1.0f, -1.0f, 0.0f);  // Bottom right.
+	vertices[2].color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
 
 	// Load the index array with data.
 	indices[0] = 0;  // Bottom left.
@@ -79,7 +93,7 @@ bool Triangle::InitializeBuffers(ID3D11Device* device)
 
 	// Set up the description of the static vertex buffer.
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(Vertex) * m_vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;

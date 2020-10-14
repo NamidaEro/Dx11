@@ -16,6 +16,11 @@ public:
 	~CCamera();
 
 public:
+	void		Render();
+	const D3DXMATRIX* GetViewMatrix();
+
+public:
+	D3DXMATRIX* m_viewMatrix;
 };
 END
 

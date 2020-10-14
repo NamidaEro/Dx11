@@ -46,6 +46,7 @@ CClientApp::CClientApp() noexcept
 CClientApp::~CClientApp()
 {
 	manager->Shutdown();
+	delete manager;
 }
 
 // 유일한 CClientApp 개체입니다.
