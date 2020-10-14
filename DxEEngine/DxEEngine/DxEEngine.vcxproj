@@ -129,7 +129,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <DisableSpecificWarnings>4005</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4005;4099;</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,12 +157,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CD3D.h" />
     <ClInclude Include="CDxManager.h" />
+    <ClInclude Include="CGameObject.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Extern.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GPURender.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="IObject.h" />
     <ClInclude Include="Macros.h" />
@@ -177,11 +180,14 @@
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CD3D.cpp" />
     <ClCompile Include="CDxManager.cpp" />
+    <ClCompile Include="CGameObject.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="GPURender.cpp" />
     <ClCompile Include="IObject.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -195,6 +201,9 @@
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vertex.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,9 +4,9 @@
 #include "Includes.h"
 #include "Vertex.h"
 
-class ID3D11Device;
-class ID3D11DeviceContext;
-class ID3D11Buffer;
+struct ID3D11Device;
+struct ID3D11DeviceContext;
+struct ID3D11Buffer;
 
 START(dxengine)
 
@@ -27,6 +27,9 @@ protected:
 	ID3D11Buffer* m_indexBuffer;
 	int m_vertexCount;
 	int m_indexCount;
+
+	Vertex* vertices;
+	unsigned long* indices;
 };
 
 END

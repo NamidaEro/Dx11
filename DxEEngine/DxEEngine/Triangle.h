@@ -20,10 +20,6 @@ protected:
 public:
 	Triangle();
 	~Triangle();
-
-public:
-	Vertex* vertices;
-	unsigned long* indices;
 };
 
 END

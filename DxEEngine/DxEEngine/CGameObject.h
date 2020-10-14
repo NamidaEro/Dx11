@@ -1,11 +1,11 @@
-#ifndef COMPONENT_H__
-#define COMPONENT_H__
+#ifndef CGAMEOBJECT_H__
+#define CGAMEOBJECT_H__
 
 #include "Includes.h"
+#include "Transform.h"
 
 START(dxengine)
-
-class DXAPI Component : public IObject
+class CGameObject : public IObject
 {
 	// IObject을(를) 통해 상속됨
 	virtual void Awake() override;
@@ -20,10 +20,12 @@ class DXAPI Component : public IObject
 	virtual void OnGUI() override;
 	virtual void OnDisable() override;
 	virtual void OnDestroy() override;
-};
 
+public:
+	Transform transform;
+};
 END
-#endif // !COMPONENT_H__
+#endif // !CGAMEOBJECT_H__
 
 
 
