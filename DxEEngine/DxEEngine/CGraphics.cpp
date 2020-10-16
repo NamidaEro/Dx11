@@ -153,8 +153,8 @@ bool CGraphics::Render()
 	m_Camera->Render();
 
 	// Get the world, view, and projection matrices from the camera and d3d objects.
-	viewMatrix = *(m_Camera->GetViewMatrix());
 	m_pD3D->GetWorldMatrix(worldMatrix);
+	viewMatrix = *(m_Camera->GetViewMatrix());	
 	m_pD3D->GetProjectionMatrix(projectionMatrix);
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.

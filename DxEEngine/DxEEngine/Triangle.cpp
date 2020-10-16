@@ -164,7 +164,7 @@ void Triangle::RenderBuffers(ID3D11DeviceContext* context)
 	unsigned int offset;
 
 	// Set vertex buffer stride and offset.
-	stride = sizeof(Vertex);
+	stride = sizeof(VertexType);
 	offset = 0;
 
 	// Set the vertex buffer to active in the input assembler so it can be rendered.

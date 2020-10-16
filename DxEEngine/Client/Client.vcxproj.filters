@@ -60,6 +60,8 @@
     <None Include="res\Client.rc2">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="Shader\color.ps" />
+    <None Include="Shader\color.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Client.ico">

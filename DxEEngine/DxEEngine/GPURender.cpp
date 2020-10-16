@@ -318,8 +318,6 @@ bool CGPURender::SetShaderParameters(ID3D11DeviceContext* context
 	context->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 
 	return true;
-
-	return false;
 }
 
 void CGPURender::RenderShader(ID3D11DeviceContext* context, int indexCount)

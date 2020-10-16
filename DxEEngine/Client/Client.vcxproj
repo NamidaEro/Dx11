@@ -81,6 +81,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\horon\Documents\GitHub\Dx11\DxEEngine\DxEEngine;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\horon\Documents\GitHub\Dx11\DxEEngine\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -121,6 +123,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>DxEEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -210,6 +213,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Client.rc2" />
+    <None Include="Shader\color.ps" />
+    <None Include="Shader\color.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Client.ico" />
