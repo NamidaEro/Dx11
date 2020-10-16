@@ -12,6 +12,9 @@
 #define NULLCHECK_START(x) if(nullptr == x) {
 #define NULLCHECK_END }
 
+#define NNULLCHECK_START(x) if(nullptr != x) {
+#define NNULLCHECK_END }
+
 #if _DEBUG && DXEENGINE_EXPORTS
 #define DXAPI __declspec(dllexport)
 #else

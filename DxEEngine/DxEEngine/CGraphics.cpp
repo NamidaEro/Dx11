@@ -15,6 +15,7 @@ CGraphics::CGraphics()
 	, m_Model(nullptr)
 	, m_GPURender(nullptr)
 {
+	int a = 0;
 }
 
 CGraphics::CGraphics(const CGraphics&)
@@ -23,6 +24,7 @@ CGraphics::CGraphics(const CGraphics&)
 
 CGraphics::~CGraphics()
 {
+	Shutdown();
 }
 
 bool CGraphics::Initialize(HWND hwnd, int screenWidth, int screenHeight)

@@ -10,7 +10,7 @@ CDxManager::CDxManager()
 {
 	if (nullptr == m_pGraphics)
 	{
-		m_pGraphics = new CGraphics;
+		m_pGraphics = new CGraphics();
 	}
 }
 CDxManager::~CDxManager()
@@ -33,9 +33,10 @@ bool CDxManager::Initailize(
 
 void CDxManager::Shutdown()
 {
-	NULLCHECK_START(m_pGraphics)
+	NNULLCHECK_START(m_pGraphics)
 		m_pGraphics->Shutdown();
-	NULLCHECK_END
+		delete m_pGraphics;
+	NNULLCHECK_END
 }
 
 bool CDxManager::Frame()

@@ -34,10 +34,10 @@ public:
 	float	SCREEN_NEAR = false;
 
 private:
-	CD3D* m_pD3D;
-	CCamera* m_Camera;
-	Triangle* m_Model;
-	CGPURender* m_GPURender;
+	CD3D*			m_pD3D = nullptr;
+	CCamera*		m_Camera = nullptr;
+	Triangle*		m_Model = nullptr;
+	CGPURender*		m_GPURender = nullptr;
 };
 
 END

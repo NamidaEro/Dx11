@@ -45,7 +45,6 @@ CClientApp::CClientApp() noexcept
 
 CClientApp::~CClientApp()
 {
-	manager->Shutdown();
 	delete manager;
 }
 
