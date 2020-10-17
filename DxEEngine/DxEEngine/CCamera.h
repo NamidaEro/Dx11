@@ -4,9 +4,6 @@
 #include "Includes.h"
 #include "CGameObject.h"
 
-struct D3DXVECTOR3;
-struct D3DXMATRIX;
-
 START(dxengine)
 class CCamera : public CGameObject
 {
@@ -17,10 +14,12 @@ public:
 
 public:
 	void		Render();
-	const D3DXMATRIX* GetViewMatrix();
+	void		GetViewMatrix(XMMATRIX& viewMatrix);
 
 public:
-	D3DXMATRIX* m_viewMatrix;
+	XMFLOAT3 m_position;
+	XMFLOAT3 m_rotation;
+	XMMATRIX m_viewMatrix;
 };
 END
 

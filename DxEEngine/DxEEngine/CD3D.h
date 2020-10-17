@@ -1,17 +1,6 @@
 // Copyright YUI, Inc. All Rights Reserved.
 #ifndef D3D_H__
 #define D3D_H__
-
-#include <dxgi.h>
-#include <d3dcommon.h>
-#include <d3d11.h>
-#include <D3DX10math.h>
-
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dx11.lib")
-#pragma comment(lib, "d3dx10.lib")
-
 #include "Includes.h"
 
 START(dxengine)
@@ -42,9 +31,9 @@ public:
 	ID3D11DeviceContext*		GetDeviceContext() { return m_deviceContext; }
 
 public:
-	void						GetProjectionMatrix(D3DXMATRIX& projMatrix) { projMatrix = m_projectionMatrix; }
-	void						GetWorldMatrix(D3DMATRIX& worldMatrix) { worldMatrix = m_worldMatrix; }
-	void						GetOrhoMatrix(D3DMATRIX& orthoMatrix) { orthoMatrix = m_orthoMatrix; }
+	void						GetProjectionMatrix(XMMATRIX& projMatrix) { projMatrix = m_projectionMatrix; }
+	void						GetWorldMatrix(XMMATRIX& worldMatrix) { worldMatrix = m_worldMatrix; }
+	void						GetOrhoMatrix(XMMATRIX& orthoMatrix) { orthoMatrix = m_orthoMatrix; }
 
 public:
 	void						GetVideoCardInfo(char* cardName, int& memory);
@@ -61,9 +50,9 @@ private:
 	ID3D11DepthStencilState*	m_depthStencilState;
 	ID3D11DepthStencilView*		m_depthStencilView;
 	ID3D11RasterizerState*		m_rasterState;
-	D3DXMATRIX					m_projectionMatrix;
-	D3DXMATRIX					m_worldMatrix;
-	D3DXMATRIX					m_orthoMatrix;
+	XMMATRIX					m_projectionMatrix;
+	XMMATRIX					m_worldMatrix;
+	XMMATRIX					m_orthoMatrix;
 };
 
 END

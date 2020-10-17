@@ -4,10 +4,6 @@
 #include "Includes.h"
 #include "Vertex.h"
 
-struct ID3D11Device;
-struct ID3D11DeviceContext;
-struct ID3D11Buffer;
-
 START(dxengine)
 
 class DXAPI Polygon
@@ -25,10 +21,10 @@ protected:
 	virtual void RenderBuffers(ID3D11DeviceContext* context);
 
 protected:
-	ID3D11Buffer* m_vertexBuffer;
-	ID3D11Buffer* m_indexBuffer;
-	int m_vertexCount;
-	int m_indexCount;
+	ID3D11Buffer* m_vertexBuffer = nullptr;
+	ID3D11Buffer* m_indexBuffer = nullptr;
+	int m_vertexCount = 0;
+	int m_indexCount = 0;
 
 	//Vertex* vertices;
 	unsigned long* indices;

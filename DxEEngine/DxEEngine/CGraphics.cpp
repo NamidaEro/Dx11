@@ -7,6 +7,9 @@
 #include "GPURender.h"
 #include "Triangle.h"
 
+#include "ModelClass.h";
+#include "ColorShaderClass.h"
+
 USING(dxengine);
 
 CGraphics::CGraphics()
@@ -59,10 +62,12 @@ bool CGraphics::Initialize(HWND hwnd, int screenWidth, int screenHeight)
 	}
 
 	// Set the initial position of the camera.
-	m_Camera->transform.SetlocalPosition(Vector3(0.0f, 0.0f, -10.0f));
+	//m_Camera->transform.SetlocalPosition(Vector3(0.0f, 0.0f, -10.0f));
+	m_Camera->m_position = XMFLOAT3(0.0f, 0.0f, -10.0f);
 
 	// Create the model object.
 	m_Model = new Triangle;
+	//m_Model = new ModelClass;
 	if (!m_Model)
 	{
 		return false;
@@ -78,6 +83,7 @@ bool CGraphics::Initialize(HWND hwnd, int screenWidth, int screenHeight)
 
 	// Create the color shader object.
 	m_GPURender = new CGPURender;
+	//m_GPURender = new ColorShaderClass;
 	if (!m_GPURender)
 	{
 		return false;
@@ -143,7 +149,7 @@ bool CGraphics::Frame()
 
 bool CGraphics::Render()
 {
-	D3DXMATRIX viewMatrix, projectionMatrix, worldMatrix;
+	XMMATRIX viewMatrix, projectionMatrix, worldMatrix;
 	bool result;
 
 	// Clear the buffers to begin the scene.
@@ -154,7 +160,7 @@ bool CGraphics::Render()
 
 	// Get the world, view, and projection matrices from the camera and d3d objects.
 	m_pD3D->GetWorldMatrix(worldMatrix);
-	viewMatrix = *(m_Camera->GetViewMatrix());	
+	m_Camera->GetViewMatrix(viewMatrix);
 	m_pD3D->GetProjectionMatrix(projectionMatrix);
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
@@ -162,7 +168,7 @@ bool CGraphics::Render()
 
 	// Render the model using the color shader.
 	result = m_GPURender->Render(m_pD3D->GetDeviceContext()
-		, m_Model->GetIndexCount(), &worldMatrix, &viewMatrix, &projectionMatrix);
+		, m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
 	if (!result)
 	{
 		return false;

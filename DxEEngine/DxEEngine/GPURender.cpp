@@ -1,25 +1,17 @@
 #include "pch.h"
 #include "GPURender.h"
 
-#include <d3d11.h>
-#include <d3dx10math.h>
-#include <d3dx11async.h>
 #include <fstream>
 #include <corecrt_wstring.h>
-
-#pragma comment(lib, "dxgi.lib")
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dx11.lib")
-#pragma comment(lib, "d3dx10.lib")
 
 USING(std)
 USING(dxengine)
 
 struct MatrixBufferType
 {
-	D3DXMATRIX world;
-	D3DXMATRIX view;
-	D3DXMATRIX projection;
+	XMMATRIX world;
+	XMMATRIX view;
+	XMMATRIX projection;
 };
 
 CGPURender::CGPURender()
@@ -69,7 +61,7 @@ void CGPURender::Shutdown()
 }
 
 bool CGPURender::Render(ID3D11DeviceContext* context, int indexCount
-	, D3DXMATRIX* worldMatrix, D3DXMATRIX* viewMatrix, D3DXMATRIX* projectionMatrix)
+	, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix)
 {
 	bool result;
 
@@ -101,11 +93,10 @@ bool CGPURender::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFile
 	vertexShaderBuffer = 0;
 	pixelShaderBuffer = 0;
 
-	// Compile the vertex shader code.
-	result = D3DX11CompileFromFile(vsFilename, NULL, NULL
+	result = D3DCompileFromFile(vsFilename, NULL, NULL
 		, "ColorVertexShader", "vs_5_0"
-		, D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL
-		, &vertexShaderBuffer, &errorMessage, NULL);
+		, D3D10_SHADER_ENABLE_STRICTNESS, 0
+		, &vertexShaderBuffer, &errorMessage);
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have writen something to the error message.
@@ -123,10 +114,10 @@ bool CGPURender::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFile
 	}
 
 	// Compile the pixel shader code.
-	result = D3DX11CompileFromFile(psFilename, NULL, NULL
+	result = D3DCompileFromFile(psFilename, NULL, NULL
 		, "ColorPixelShader", "ps_5_0"
-		, D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL
-		, &pixelShaderBuffer, &errorMessage, NULL);
+		, D3D10_SHADER_ENABLE_STRICTNESS, 0
+		, &pixelShaderBuffer, &errorMessage);
 	if (FAILED(result))
 	{
 		// If the shader failed to compile it should have writen something to the error message.
@@ -281,7 +272,7 @@ void CGPURender::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, W
 }
 
 bool CGPURender::SetShaderParameters(ID3D11DeviceContext* context
-	, D3DXMATRIX* worldMatrix, D3DXMATRIX* viewMatrix, D3DXMATRIX* projectionMatrix)
+	, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -289,9 +280,9 @@ bool CGPURender::SetShaderParameters(ID3D11DeviceContext* context
 	unsigned int bufferNumber;
 
 	// Transpose the matrices to prepare them for the shader.
-	D3DXMatrixTranspose(worldMatrix, worldMatrix);
-	D3DXMatrixTranspose(viewMatrix, viewMatrix);
-	D3DXMatrixTranspose(projectionMatrix, projectionMatrix);
+	worldMatrix = XMMatrixTranspose(worldMatrix);
+	viewMatrix = XMMatrixTranspose(viewMatrix);
+	projectionMatrix = XMMatrixTranspose(projectionMatrix);
 
 	// Lock the constant buffer so it can be written to.
 	result = context->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
@@ -304,9 +295,9 @@ bool CGPURender::SetShaderParameters(ID3D11DeviceContext* context
 	dataPtr = (MatrixBufferType*)mappedResource.pData;
 
 	// Copy the matrices into the constant buffer.
-	dataPtr->world = *worldMatrix;
-	dataPtr->view = *viewMatrix;
-	dataPtr->projection = *projectionMatrix;
+	dataPtr->world = worldMatrix;
+	dataPtr->view = viewMatrix;
+	dataPtr->projection = projectionMatrix;
 
 	// Unlock the constant buffer.
 	context->Unmap(m_matrixBuffer, 0);
