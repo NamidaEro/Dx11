@@ -9,6 +9,7 @@
 #include "Client.h"
 #include "MainFrm.h"
 
+#include "../DxEEngine/CGraphics.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -94,7 +95,12 @@ BOOL CClientApp::InitInstance()
 
 	HWND hwnd = ((CMainFrame*)pFrame)->m_wndView.GetSafeHwnd();
 
-	manager->Initailize(hwnd, 1240, 720, 1000, 10, false, false);
+	CRect rect;
+	((CMainFrame*)pFrame)->m_wndView.GetWindowRect(&rect);
+
+	manager->Initailize(hwnd, rect.Width(), rect.Height(), 1000.0f, 0.1f, false, false);
+
+	manager->m_pGraphics->SetCameraPosition(XMFLOAT3(0.0f, 0.0f, -5.0f));
 
 	return TRUE;
 }

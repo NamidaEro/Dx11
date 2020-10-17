@@ -48,3 +48,8 @@ bool CDxManager::Frame()
 
 	return result;
 }
+
+void CDxManager::SetCameraPosition(XMFLOAT3& position)
+{
+	m_pGraphics->SetCameraPosition(position);
+}

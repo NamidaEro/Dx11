@@ -63,7 +63,7 @@ bool CGraphics::Initialize(HWND hwnd, int screenWidth, int screenHeight)
 
 	// Set the initial position of the camera.
 	//m_Camera->transform.SetlocalPosition(Vector3(0.0f, 0.0f, -10.0f));
-	m_Camera->m_position = XMFLOAT3(0.0f, 0.0f, -10.0f);
+	m_Camera->m_position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 
 	// Create the model object.
 	m_Model = new Triangle;
@@ -179,4 +179,9 @@ bool CGraphics::Render()
 	m_pD3D->EndScene();
 
 	return true;
+}
+
+void CGraphics::SetCameraPosition(XMFLOAT3& position)
+{
+	m_Camera->m_position = position;
 }

@@ -93,6 +93,9 @@
     <ClInclude Include="CCamera.h">
       <Filter>05.Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="Extern_header.h">
+      <Filter>99.Public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDxManager.cpp">

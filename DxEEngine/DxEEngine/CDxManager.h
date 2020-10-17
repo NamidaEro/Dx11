@@ -1,11 +1,8 @@
 // Copyright YUI, Inc. All Rights Reserved.
-
-
 #ifndef CDxManager_h_
 #define CDxManager_h_
 
 #include "Includes.h"
-
 START(dxengine)
 class CGraphics;
 class DXAPI CDxManager
@@ -21,6 +18,9 @@ public:
 		, bool vsync, bool fullscreen);
 	void Shutdown();
 	bool Frame();
+
+public:
+	void SetCameraPosition(XMFLOAT3& position);
 
 public:
 	CGraphics* m_pGraphics = nullptr;

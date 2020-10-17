@@ -13,7 +13,7 @@ class Triangle;
 class CGPURender;
 class ModelClass;
 class ColorShaderClass;
-class CGraphics : public ISystemObject
+class DXAPI CGraphics : public ISystemObject
 {
 public:
 	CGraphics();
@@ -28,6 +28,9 @@ public:
 
 private:
 	bool	Render();
+
+public:
+	void SetCameraPosition(XMFLOAT3& position);
 
 public:
 	bool	FULL_SCREEN = false;

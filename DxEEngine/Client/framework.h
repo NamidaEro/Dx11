@@ -28,6 +28,15 @@
 #include <afxcontrolbars.h>     // MFC의 리본 및 컨트롤 막대 지원
 
 
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "d3dcompiler.lib")
+
+#include <d3d11.h>
+#include <d3dcompiler.h>
+#include <directxmath.h>
+using namespace DirectX;
+
 
 
 
