@@ -1,17 +1,17 @@
-#ifndef CGPURENDER_H__
-#define CGPURENDER_H__
+#ifndef TEXUTRERENDER_H__
+#define TEXUTRERENDER_H__
 
 #include "Includes.h"
 #include "IRender.h"
 
 START(dxengine)
 
-class DXAPI CGPURender : public IRender
+class DXAPI TextureRender :public IRender
 {
 public:
-	CGPURender() {}
-	CGPURender(const CGPURender& other) {}
-	~CGPURender() {}
+	TextureRender() {}
+	TextureRender(const TextureRender& other) {}
+	~TextureRender() {}
 
 public:
 	// IRender을(를) 통해 상속됨
@@ -29,4 +29,7 @@ protected:
 
 END
 
-#endif // !CGPURENDER_H__
+#endif // !TEXUTRERENDER_H__
+
+
+

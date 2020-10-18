@@ -62,6 +62,8 @@
     </None>
     <None Include="Shader\color.ps" />
     <None Include="Shader\color.vs" />
+    <None Include="Texture.vs" />
+    <None Include="Texture.ps" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\Client.ico">

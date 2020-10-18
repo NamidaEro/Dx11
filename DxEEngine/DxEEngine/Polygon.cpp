@@ -3,7 +3,7 @@
 
 USING(dxengine)
 
-bool Polygon::Initialize(ID3D11Device* device)
+bool Polygon::Initialize(ID3D11Device* device, ID3D11DeviceContext* context, WCHAR* filename)
 {
 	return true;
 }
@@ -26,5 +26,14 @@ void Polygon::ShutdownBuffers()
 }
 
 void Polygon::RenderBuffers(ID3D11DeviceContext* context)
+{
+}
+
+bool Polygon::LoadTexture(ID3D11Device* device, ID3D11DeviceContext* context, WCHAR* filename)
+{
+	return false;
+}
+
+void Polygon::ReleaseTexture()
 {
 }

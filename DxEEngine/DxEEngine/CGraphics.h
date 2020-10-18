@@ -11,8 +11,7 @@ class CD3D;
 class CCamera;
 class Triangle;
 class CGPURender;
-class ModelClass;
-class ColorShaderClass;
+class TextureRender;
 class DXAPI CGraphics : public ISystemObject
 {
 public:
@@ -43,8 +42,7 @@ private:
 	CCamera*		m_Camera = nullptr;
 	Triangle*		m_Model = nullptr;
 	CGPURender*		m_GPURender = nullptr;
-	//ModelClass* m_Model = nullptr;
-	//ColorShaderClass* m_GPURender = nullptr;
+	TextureRender*	m_TextureShader = nullptr;
 };
 
 END

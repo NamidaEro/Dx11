@@ -167,11 +167,15 @@
     <ClInclude Include="GPURender.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="IObject.h" />
+    <ClInclude Include="IRender.h" />
     <ClInclude Include="Macros.h" />
     <ClInclude Include="Math3D.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Polygon.h" />
     <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="StringHelper.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureRender.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="TypeDefs.h" />
@@ -188,6 +192,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GPURender.cpp" />
     <ClCompile Include="IObject.cpp" />
+    <ClCompile Include="IRender.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -196,6 +201,8 @@
     </ClCompile>
     <ClCompile Include="Polygon.cpp" />
     <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureRender.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3.cpp" />

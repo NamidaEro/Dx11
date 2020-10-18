@@ -96,6 +96,18 @@
     <ClInclude Include="Extern_header.h">
       <Filter>99.Public</Filter>
     </ClInclude>
+    <ClInclude Include="TextureRender.h">
+      <Filter>05.Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="IRender.h">
+      <Filter>05.Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>05.Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="StringHelper.h">
+      <Filter>98.Defines</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDxManager.cpp">
@@ -144,6 +156,15 @@
       <Filter>02.Objects</Filter>
     </ClCompile>
     <ClCompile Include="CCamera.cpp">
+      <Filter>05.Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="IRender.cpp">
+      <Filter>05.Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureRender.cpp">
+      <Filter>05.Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
       <Filter>05.Graphics</Filter>
     </ClCompile>
   </ItemGroup>

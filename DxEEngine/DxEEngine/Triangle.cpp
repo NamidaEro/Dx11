@@ -28,7 +28,7 @@ Triangle::~Triangle()
 	Shutdown();
 }
 
-bool Triangle::Initialize(ID3D11Device* device)
+bool Triangle::Initialize(ID3D11Device* device, ID3D11DeviceContext* context, WCHAR* filename)
 {
 	bool result;
 	// Initialize the vertex and index buffer that hold the geometry for the triangle.
@@ -38,11 +38,12 @@ bool Triangle::Initialize(ID3D11Device* device)
 		return false;
 	}
 
-	return true;
+	return LoadTexture(device, context, filename);
 }
 
 void Triangle::Shutdown()
 {
+	ReleaseTexture();
 	// Release the vertex and index buffers.
 	ShutdownBuffers();
 }
@@ -167,4 +168,21 @@ void Triangle::RenderBuffers(ID3D11DeviceContext* context)
 	// Set the type of primitive that should be rendered from this vertex buffer, in this case triangles.
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+}
+
+bool Triangle::LoadTexture(ID3D11Device* device, ID3D11DeviceContext* context, WCHAR* filename)
+{
+	m_Texture = new Texture;
+	if (!m_Texture) { return false; }
+	return m_Texture->Initialize(device, context, filename);
+}
+
+void Triangle::ReleaseTexture()
+{
+	if (m_Texture)
+	{
+		m_Texture->Shutdown();
+		delete m_Texture;
+		m_Texture = 0;
+	}
 }

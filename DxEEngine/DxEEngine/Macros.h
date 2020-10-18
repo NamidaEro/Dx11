@@ -14,6 +14,9 @@
 
 #define NNULLCHECK_START(x) if(nullptr != x) {
 #define NNULLCHECK_END }
+#define NNULLCHECK(x, doit) NNULLCHECK_START(x) doit; NNULLCHECK_END
+
+#define FAILED_RETURN(value, rs) if(FAILED(value)){return rs;}
 
 #if _DEBUG && DXEENGINE_EXPORTS
 #define DXAPI __declspec(dllexport)

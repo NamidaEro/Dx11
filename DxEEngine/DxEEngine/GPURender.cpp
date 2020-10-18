@@ -4,32 +4,7 @@
 #include <fstream>
 #include <corecrt_wstring.h>
 
-USING(std)
 USING(dxengine)
-
-struct MatrixBufferType
-{
-	XMMATRIX world;
-	XMMATRIX view;
-	XMMATRIX projection;
-};
-
-CGPURender::CGPURender()
-	: m_vertexShader(nullptr)
-	, m_pixelShader(nullptr)
-	, m_layout(nullptr)
-	, m_matrixBuffer(nullptr)
-{
-}
-
-CGPURender::CGPURender(const CGPURender& other)
-{
-}
-
-CGPURender::~CGPURender()
-{
-	Shutdown();
-}
 
 bool CGPURender::Initialize(ID3D11Device* device, HWND hwnd)
 {
@@ -60,13 +35,12 @@ void CGPURender::Shutdown()
 	ShutdownShader();
 }
 
-bool CGPURender::Render(ID3D11DeviceContext* context, int indexCount
-	, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix)
+bool CGPURender::Render(ID3D11DeviceContext* context, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture)
 {
 	bool result;
 
 	// Set the shader parameters that it will use for rendering.
-	result = SetShaderParameters(context, worldMatrix, viewMatrix, projectionMatrix);
+	result = SetShaderParameters(context, worldMatrix, viewMatrix, projectionMatrix, texture);
 	if (!result)
 	{
 		return false;
@@ -210,69 +184,15 @@ bool CGPURender::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFile
 
 void CGPURender::ShutdownShader()
 {
-	// Release the matrix constant buffer.
-	if (m_matrixBuffer)
-	{
-		m_matrixBuffer->Release();
-		m_matrixBuffer = 0;
-	}
-
-	// Release the layout.
-	if (m_layout)
-	{
-		m_layout->Release();
-		m_layout = 0;
-	}
-
-	// Release the pixel shader.
-	if (m_pixelShader)
-	{
-		m_pixelShader->Release();
-		m_pixelShader = 0;
-	}
-
-	// Release the vertex shader.
-	if (m_vertexShader)
-	{
-		m_vertexShader->Release();
-		m_vertexShader = 0;
-	}
+	IRender::ShutdownShader();
 }
 
 void CGPURender::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename)
 {
-	char* compileErrors;
-	unsigned long bufferSize, i;
-	ofstream fout;
-
-	// Get a pointer to the error message text buffer.
-	compileErrors = (char*)(errorMessage->GetBufferPointer());
-
-	// Get the length of the message.
-	bufferSize = errorMessage->GetBufferSize();
-
-	// Open a file to write the error message to.
-	fout.open("shader-error.txt");
-
-	// Write out the error message.
-	for (i = 0; i < bufferSize; i++)
-	{
-		fout << compileErrors[i];
-	}
-
-	// Close the file.
-	fout.close();
-
-	// Release the error message.
-	errorMessage->Release();
-	errorMessage = 0;
-
-	// Pop a message up on the screen to notify the user to check the text file for compile errors.
-	MessageBox(hwnd, L"Error compiling shader.  Check shader-error.txt for message.", shaderFilename, MB_OK);
+	IRender::OutputShaderErrorMessage(errorMessage, hwnd, shaderFilename);
 }
 
-bool CGPURender::SetShaderParameters(ID3D11DeviceContext* context
-	, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix)
+bool CGPURender::SetShaderParameters(ID3D11DeviceContext* context, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix, ID3D11ShaderResourceView* texture)
 {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
@@ -313,13 +233,5 @@ bool CGPURender::SetShaderParameters(ID3D11DeviceContext* context
 
 void CGPURender::RenderShader(ID3D11DeviceContext* context, int indexCount)
 {
-	// Set the vertex input layout.
-	context->IASetInputLayout(m_layout);
-
-	// Set the vertex and pixel shaders that will be used to render this triangle.
-	context->VSSetShader(m_vertexShader, NULL, 0);
-	context->PSSetShader(m_pixelShader, NULL, 0);
-
-	// Render the triangle.
-	context->DrawIndexed(indexCount, 0, 0);
+	IRender::RenderShader(context, indexCount);
 }

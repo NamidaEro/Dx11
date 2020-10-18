@@ -2,13 +2,15 @@
 #include "pch.h"
 #include "CGraphics.h"
 
+#include <fstream>
+#include <corecrt_wstring.h>
+
 #include "CD3D.h"
 #include "CCamera.h"
 #include "GPURender.h"
 #include "Triangle.h"
 
-#include "ModelClass.h";
-#include "ColorShaderClass.h"
+#include "TextureRender.h"
 
 USING(dxengine);
 
@@ -33,6 +35,10 @@ CGraphics::~CGraphics()
 bool CGraphics::Initialize(HWND hwnd, int screenWidth, int screenHeight)
 {
 	bool result;
+
+	WCHAR texutrePath[_MAX_PATH];
+	GetCurrentDirectory(_MAX_PATH, texutrePath);
+	std::wcscat(texutrePath, L"\\Shader\\stone01.tga");
 
 	// Create the Direct3D object.
 	m_pD3D = new CD3D();
@@ -74,7 +80,7 @@ bool CGraphics::Initialize(HWND hwnd, int screenWidth, int screenHeight)
 	}
 
 	// Initialize the model object.
-	result = m_Model->Initialize(m_pD3D->GetDevice());
+	result = m_Model->Initialize(m_pD3D->GetDevice(), m_pD3D->GetDeviceContext(), texutrePath);
 	if (!result)
 	{
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
@@ -97,11 +103,29 @@ bool CGraphics::Initialize(HWND hwnd, int screenWidth, int screenHeight)
 		return false;
 	}
 
+	m_TextureShader = new TextureRender;
+	if (!m_TextureShader) { return false; }
+
+	result = m_TextureShader->Initialize(m_pD3D->GetDevice(), hwnd);
+	if (!result)
+	{
+		MessageBox(hwnd, L"Could not initialize the Texture shader object.", L"Error", MB_OK);
+		return false;
+	}
+
 	return true;
 }
 
 void CGraphics::Shutdown()
 {
+	// Release the color shader object.
+	if (m_TextureShader)
+	{
+		m_TextureShader->Shutdown();
+		delete m_TextureShader;
+		m_TextureShader = 0;
+	}
+
 	// Release the color shader object.
 	if (m_GPURender)
 	{
@@ -167,8 +191,18 @@ bool CGraphics::Render()
 	m_Model->Render(m_pD3D->GetDeviceContext());
 
 	// Render the model using the color shader.
-	result = m_GPURender->Render(m_pD3D->GetDeviceContext()
+	/*result = m_GPURender->Render(m_pD3D->GetDeviceContext()
 		, m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	if (!result)
+	{
+		return false;
+	}*/
+
+	result = m_TextureShader->Render(
+		m_pD3D->GetDeviceContext()
+		, m_Model->GetIndexCount()
+		, worldMatrix, viewMatrix, projectionMatrix
+	, m_Model->GetTexture());
 	if (!result)
 	{
 		return false;
